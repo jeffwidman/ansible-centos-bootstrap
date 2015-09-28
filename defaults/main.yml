@@ -1,0 +1,21 @@
+---
+# defaults file for centos-bootstrap
+
+timezone: UTC
+text_editor: vim
+
+cron_email_address: "{{ email_address }}"
+
+sysadmin_tools:
+  - cronie
+  - git
+  - htop
+  - man
+  - ncdu
+  - net-tools
+  # - python34 # pip isn't included unfortunately, so don't switch to this until they ship python34-pip
+  - rsync
+  - sudo
+  - tmux
+  - vim
+  - which

@@ -1,0 +1,46 @@
+---
+# tasks file for centos-bootstrap
+
+- name: Ensure deltarpm installed (before updating CentOS packages)
+  yum: name=deltarpm state=latest
+
+- name: Update CentOS packages
+  yum: name=* state=latest update_cache=yes
+
+- name: Ensure EPEL installed
+  yum: name=epel-release state=latest
+
+- name: Ensure basic sysadmin tools installed
+  yum: name={{ item }} state=latest
+  with_items: sysadmin_tools
+
+- name: Set timezone to {{ timezone }}
+  when: ansible_date_time.tz != '{{ timezone }}'
+  command: timedatectl set-timezone {{ timezone }}
+  tags: tz
+
+- name: Set the default text editor for {{ ansible_ssh_user }} to {{ text_editor }}
+  # Some VPS providers ship Centos 7 with Nano as default, some with Vim
+  lineinfile:
+    dest: "/home/{{ ansible_ssh_user }}/.bash_profile"
+    regexp: "^export EDITOR="
+    line: "export EDITOR={{ text_editor }}"
+
+- name: Set the default text editor for root to {{ text_editor }}
+  # Some VPS providers ship Centos 7 with Nano as default, some with Vim
+  lineinfile:
+    dest: "/root/.bash_profile"
+    regexp: "^export EDITOR="
+    line: "export EDITOR={{ text_editor }}"
+
+- name: Start cron(ie)
+  service: name=crond state=started enabled=yes
+  tags: cronie
+
+- name: Set crontab MAILTO variable to {{ cron_email_address }}
+  # If changing MAILTO, don't forget to reboot to get cron to work.
+  # This is a hack because Ansible doesn't have a good way
+  # to handle environment variables for cron. Since cron jobs are appended
+  # to crontab, just fake a task immediately after installing/enabling cron.
+  cron: name="MAILTO section" minute="MAILTO={{ cron_email_address }}" hour="" day="" month="" weekday="" job=""
+  tags: cronie
