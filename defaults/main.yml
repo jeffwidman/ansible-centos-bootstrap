@@ -20,3 +20,4 @@ sysadmin_tools:
   - tmux
   - vim
   - which
+  - yum-plugin-keys # easy management of GPG keys
