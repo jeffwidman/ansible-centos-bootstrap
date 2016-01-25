@@ -19,10 +19,10 @@
   command: timedatectl set-timezone {{ timezone }}
   tags: tz
 
-- name: Set the default text editor for {{ ansible_ssh_user }} to {{ text_editor }}
+- name: Set the default text editor for {{ ansible_env.SUDO_USER }} to {{ text_editor }}
   # Some VPS providers ship Centos 7 with Nano as default, some with Vim
   lineinfile:
-    dest: "/home/{{ ansible_ssh_user }}/.bash_profile"
+    dest: "/home/{{ ansible_env.SUDO_USER }}/.bash_profile"
     regexp: "^export EDITOR="
     line: "export EDITOR={{ text_editor }}"
 
