@@ -18,6 +18,7 @@ sysadmin_tools:
   - rsync
   - sudo
   - tmux
+  - traceroute
   - vim
   - which
   - yum-plugin-keys # easy management of GPG keys
