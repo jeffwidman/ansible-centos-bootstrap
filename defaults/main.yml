@@ -10,9 +10,9 @@ sysadmin_tools:
   - cronie
   - git
   - htop
+  - iproute
   - man
   - ncdu
-  - net-tools
   # - python34 # pip3 isn't included unfortunately, so don't switch to this until they ship python34-pip
   - python-pip # pip for Python 2.7
   - rsync
