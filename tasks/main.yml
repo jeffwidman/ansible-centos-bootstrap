@@ -12,7 +12,7 @@
 
 - name: Ensure basic sysadmin tools installed
   yum: name={{ item }} state=latest
-  with_items: sysadmin_tools
+  with_items: "{{ sysadmin_tools }}"
 
 - name: Set timezone to {{ timezone }}
   when: ansible_date_time.tz != '{{ timezone }}'
