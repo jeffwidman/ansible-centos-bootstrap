@@ -44,3 +44,6 @@
   # to crontab, just fake a task immediately after installing/enabling cron.
   cron: name="MAILTO section" minute="MAILTO={{ cron_email_address }}" hour="" day="" month="" weekday="" job=""
   tags: cronie
+  # TODO Update this with the new cron env var syntax once
+  # https://github.com/ansible/ansible-modules-core/pull/2010
+  # gets into a released Ansible version
