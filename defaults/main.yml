@@ -17,6 +17,7 @@ sysadmin_tools:
   - python-pip # pip for Python 2.7
   - rsync
   - sudo
+  - telnet
   - tmux
   - traceroute
   - vim
